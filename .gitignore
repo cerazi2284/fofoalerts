@@ -1,0 +1,15 @@
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# Maven
+/target/
+
+# Logs
+*.log
+
+# Sistema operacional
+.DS_Store
+
+# Arquivos sensíveis (caso use)
+application-dev.yml
