@@ -1,4 +1,4 @@
-package com.fofoalerts.fofoalerts;
+package com.fofoalerts;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

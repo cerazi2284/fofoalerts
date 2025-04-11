@@ -1,4 +1,4 @@
-package com.fofoalerts.fofoalerts.dto;
+package com.fofoalerts.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -13,6 +13,7 @@ public class MensagemDTO {
 
     @Schema(description = "Nome de quem está enviando a mensagem", example = "Tiago")
     private String remetente;
-    @Schema(description = "Texto da mensagem", example = "Força, guerreiro!")
+
+    @Schema(description = "Texto da mensagem", example = "Vai dar bom, fofo!")
     private String texto;
 }
