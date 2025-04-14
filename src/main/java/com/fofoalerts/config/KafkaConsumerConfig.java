@@ -1,4 +1,4 @@
-package config;
+package com.fofoalerts.config;
 
 import com.fofoalerts.dto.MensagemDTO;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
@@ -21,20 +21,20 @@ public class KafkaConsumerConfig {
     @Bean
     public ConsumerFactory<String, MensagemDTO> mensagemConsumerFactory() {
         JsonDeserializer<MensagemDTO> deserializer = new JsonDeserializer<>(MensagemDTO.class);
-        deserializer.setRemoveTypeHeaders(false);
-        deserializer.addTrustedPackages("com.fofoalerts.dto");
+        deserializer.setRemoveTypeHeaders(false); // Não remove os cabeçalhos de tipo
+        deserializer.addTrustedPackages("com.fofoalerts.dto"); // Confirma o pacote de confiança
         deserializer.setUseTypeMapperForKey(false);
 
         Map<String, Object> props = new HashMap<>();
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
         props.put(ConsumerConfig.GROUP_ID_CONFIG, "grupo-fofo");
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class); // aqui vai a CLASS, não o objeto
+        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class); // Corrige aqui
 
         return new DefaultKafkaConsumerFactory<>(props, new StringDeserializer(), deserializer);
     }
 
-    @Bean
+    @Bean(name = "mensagemKafkaListenerContainerFactory")
     public ConcurrentKafkaListenerContainerFactory<String, MensagemDTO> mensagemKafkaListenerContainerFactory() {
         ConcurrentKafkaListenerContainerFactory<String, MensagemDTO> factory = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(mensagemConsumerFactory());

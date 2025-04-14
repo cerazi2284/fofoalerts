@@ -6,14 +6,37 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-@Schema(description = "DTO que representa uma mensagem enviada para Kafka")
+@AllArgsConstructor
 public class MensagemDTO {
 
-    @Schema(description = "Nome de quem está enviando a mensagem", example = "Tiago")
+    @Schema(description = "Quem enviou a mensagem", example = "Tiago")
     private String remetente;
 
-    @Schema(description = "Texto da mensagem", example = "Vai dar bom, fofo!")
+    @Schema(description = "Conteúdo da mensagem", example = "Fala aí, beleza?")
     private String texto;
+
+    @Override
+    public String toString() {
+        return "MensagemDTO{" +
+                "remetente='" + remetente + '\'' +
+                ", texto='" + texto + '\'' +
+                '}';
+    }
+
+    public String getRemetente() {
+        return remetente;
+    }
+
+    public void setRemetente(String remetente) {
+        this.remetente = remetente;
+    }
+
+    public String getTexto() {
+        return texto;
+    }
+
+    public void setTexto(String texto) {
+        this.texto = texto;
+    }
 }

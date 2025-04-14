@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(origins = "http://localhost:3001") // Libera a origem do front
 @RestController
 @RequestMapping("/mensagem")
 @Tag(name = "Mensagens", description = "Envio de mensagens solidárias")
@@ -21,6 +22,11 @@ public class MensagemController {
     @Operation(summary = "Envia uma mensagem para o sistema e publica no Kafka")
     public ResponseEntity<String> enviarMensagem(@RequestBody MensagemDTO mensagem) {
         System.out.println("📨 Mensagem recebida: " + mensagem);
+
+        // Verifica se os campos não estão null
+        if (mensagem.getRemetente() == null || mensagem.getTexto() == null) {
+            return ResponseEntity.badRequest().body("Campos 'remetente' e 'texto' são obrigatórios.");
+        }
 
         mensagemProducer.enviarMensagem(mensagem);
 

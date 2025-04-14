@@ -1,19 +1,25 @@
 package com.fofoalerts.producer;
 
 import com.fofoalerts.dto.MensagemDTO;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
 public class MensagemProducer {
 
     private final KafkaTemplate<String, MensagemDTO> kafkaTemplate;
-    private final String TOPICO = "fofo-mensagem";
+
+    @Autowired
+    public MensagemProducer(KafkaTemplate<String, MensagemDTO> kafkaTemplate) {
+        this.kafkaTemplate = kafkaTemplate;
+    }
 
     public void enviarMensagem(MensagemDTO mensagem) {
-        System.out.println("📤 Enviando mensagem pro Kafka...: " + mensagem);
-        kafkaTemplate.send(TOPICO, mensagem);
+        // Verifique o conteúdo da mensagem antes de enviar
+        System.out.println("📤 Enviando mensagem para o Kafka: " + mensagem);
+
+        // Envia a mensagem para o tópico Kafka
+        kafkaTemplate.send("fofo-mensagem", mensagem);
     }
 }
